@@ -21,6 +21,7 @@ if (! function_exists('stdf_generate_item_description')) {
         $item_names = [];
 
         foreach ($order->get_items() as $item_id => $item) {
+            /** @var WC_Order_Item_Product $item */
             $product = $item->get_product();
 
             if (! $product) {
@@ -192,7 +193,7 @@ if (! function_exists('stdf_get_product_details')) {
 
         if ($order) {
             foreach ($order->get_items() as $item_id => $item) {
-
+                /** @var WC_Order_Item_Product $item */
                 $product = $item->get_product() ?? '';
                 $name = $item->get_name() ?? '';
                 $quantity = $item->get_quantity() ?? '';
@@ -248,6 +249,7 @@ if (! function_exists('stdf_get_product_sku_id')) {
         $order = wc_get_order($order_id);
 
         foreach ($order->get_items() as $item) {
+            /** @var WC_Order_Item_Product $item */
             $product = wc_get_product($item->get_product_id());
             $item_sku[] = $product->get_sku();
         }
@@ -297,6 +299,8 @@ if (! function_exists('stdf_get_status_by_consignment_id')) {
 
 if (! function_exists('stdf_add_custom_column_content_order_page')) {
     /**
+     * @param  string  $column
+     * @param  WC_Order|string  $order
      * @return void
      */
     function stdf_add_custom_column_content_order_page($column, $order = '')
